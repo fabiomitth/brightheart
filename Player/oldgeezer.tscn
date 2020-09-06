@@ -1,9 +1,10 @@
-[gd_scene load_steps=28 format=2]
+[gd_scene load_steps=29 format=2]
 
 [ext_resource path="res://Player/oldgeezer.gd" type="Script" id=1]
 [ext_resource path="res://Player/oldgeezer.png" type="Texture" id=2]
 [ext_resource path="res://Enemies/WanderController.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Shadows/MediumShadow.png" type="Texture" id=4]
+[ext_resource path="res://UI/DialogPlayer.tscn" type="PackedScene" id=5]
 
 [sub_resource type="Animation" id=1]
 resource_name = "IdleDown"
@@ -240,3 +241,6 @@ parameters/Idle/blend_position = Vector2( -0.00156009, 0.161716 )
 parameters/Run/blend_position = Vector2( 0, 0 )
 
 [node name="WanderController" parent="." instance=ExtResource( 3 )]
+
+[node name="DialogPlayer" parent="." instance=ExtResource( 5 )]
+[connection signal="input_event" from="DialogPlayer" to="." method="_on_DialogPlayer_input_event"]

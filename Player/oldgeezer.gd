@@ -79,3 +79,7 @@ func pick_random_state(state_list):
 	return state_list.pop_front()
 
 
+
+
+func _on_DialogPlayer_input_event(viewport, event, shape_idx):
+	pass # Replace with function body.
