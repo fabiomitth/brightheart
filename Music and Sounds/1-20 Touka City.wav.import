@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/1-20 Touka City.wav-7bc0e88c76a45cf5ec70bf58d0d9fa93.sample"
+
+[deps]
+
+source_file="res://Music and Sounds/1-20 Touka City.wav"
+dest_files=[ "res://.import/1-20 Touka City.wav-7bc0e88c76a45cf5ec70bf58d0d9fa93.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

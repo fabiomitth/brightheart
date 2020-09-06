@@ -1,0 +1,85 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://Minecraft.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://UI/dialoguebox.png" type="Texture" id=2]
+[ext_resource path="res://UI/iconindicator.png" type="Texture" id=3]
+[ext_resource path="res://UI/DialogueBox.gd" type="Script" id=4]
+
+[sub_resource type="DynamicFont" id=1]
+size = 13
+font_data = ExtResource( 1 )
+
+[sub_resource type="Animation" id=2]
+resource_name = "Idle"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 292.672, 32.4038 ), Vector2( 292.672, 33.767 ) ]
+}
+
+[node name="Control" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="DialogueBox" type="Control" parent="."]
+anchor_left = 0.505
+anchor_top = 0.967
+anchor_right = 0.505
+anchor_bottom = 0.967
+margin_left = -154.6
+margin_top = -51.06
+margin_right = 152.4
+margin_bottom = -4.06001
+script = ExtResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect" type="TextureRect" parent="DialogueBox"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource( 2 )
+expand = true
+stretch_mode = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="RichTextLabel" type="RichTextLabel" parent="DialogueBox"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 12.0
+margin_top = 7.0
+margin_right = -10.0
+margin_bottom = -8.0
+custom_fonts/normal_font = SubResource( 1 )
+custom_colors/default_color = Color( 0, 0, 0, 1 )
+bbcode_enabled = true
+bbcode_text = "Yo little one, how things going? "
+text = "Yo little one, how things going? "
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="iconindicator" type="Sprite" parent="DialogueBox"]
+visible = false
+position = Vector2( 292.672, 33.7271 )
+texture = ExtResource( 3 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="DialogueBox/iconindicator"]
+autoplay = "Idle"
+anims/Idle = SubResource( 2 )
+
+[node name="Tween" type="Tween" parent="DialogueBox"]
+[connection signal="tween_completed" from="DialogueBox/Tween" to="DialogueBox" method="_on_Tween_tween_completed"]

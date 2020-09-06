@@ -1,0 +1,45 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://World/TimeSystem/Time.gd" type="Script" id=2]
+
+[sub_resource type="Animation" id=1]
+resource_name = "CicloDoDia"
+length = 24.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("ColorRect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 5, 6, 17, 18.9, 24 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 0.219608, 0.207843, 0.47451, 0.815686 ), Color( 0.219608, 0.207843, 0.47451, 0.815686 ), Color( 0.219608, 0.207843, 0.47451, 0 ), Color( 0.219608, 0.207843, 0.47451, 0 ), Color( 0.219608, 0.207843, 0.47451, 0.560784 ), Color( 0.219608, 0.207843, 0.47451, 0.815686 ) ]
+}
+
+[node name="Control" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/CicloDoDia = SubResource( 1 )
+
+[node name="ColorRect" type="CanvasModulate" parent="."]
+position = Vector2( 1, 0 )
+color = Color( 0.219608, 0.207843, 0.47451, 0.815686 )
+
+[node name="Label" type="Label" parent="."]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -51.0
+margin_top = 8.0
+margin_right = -11.0
+margin_bottom = 22.0
+__meta__ = {
+"_edit_use_anchors_": false
+}

@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://World/RPG GrassGreen.png" type="Texture" id=1]
+
+[node name="Background" type="Sprite"]
+position = Vector2( 7.12335, -4.77364 )
+texture = ExtResource( 1 )
+centered = false
+region_enabled = true
+region_rect = Rect2( 0, 0, 472.33, 397.565 )

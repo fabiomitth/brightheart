@@ -1,0 +1,289 @@
+[gd_scene load_steps=19 format=2]
+
+[ext_resource path="res://World/Bush.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Player/Player.tscn" type="PackedScene" id=2]
+[ext_resource path="res://World/WaterTileMap.tscn" type="PackedScene" id=3]
+[ext_resource path="res://World/DirtCliffTileMap.tscn" type="PackedScene" id=4]
+[ext_resource path="res://World/Background.tscn" type="PackedScene" id=5]
+[ext_resource path="res://World/Grass.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Enemies/Bat.tscn" type="PackedScene" id=7]
+[ext_resource path="res://UI/HealthUI.tscn" type="PackedScene" id=8]
+[ext_resource path="res://World/Tree.tscn" type="PackedScene" id=9]
+[ext_resource path="res://Camera2D.tscn" type="PackedScene" id=10]
+[ext_resource path="res://World/DirtPathTileMap.tscn" type="PackedScene" id=11]
+[ext_resource path="res://World/House.tscn" type="PackedScene" id=12]
+[ext_resource path="res://World/Fence 20.tscn" type="PackedScene" id=13]
+[ext_resource path="res://Music and Sounds/AudioStreamPlayer.tscn" type="PackedScene" id=14]
+[ext_resource path="res://Player/oldgeezer.tscn" type="PackedScene" id=15]
+[ext_resource path="res://UI/Portal2D.tscn" type="PackedScene" id=17]
+[ext_resource path="res://World/WaterTileset2.tscn" type="PackedScene" id=18]
+
+[sub_resource type="GDScript" id=1]
+resource_local_to_scene = true
+script/source = "extends Area2D
+
+export(String, FILE) var path_to_level
+
+onready var animationPlayer = $AnimationPlayer
+
+func _on_Portal2D_body_entered(body):
+	teleport()
+
+func _get_configuration_warning() -> String:
+	return \"The next scene property can't be empty\" if not path_to_level else \"\"
+
+
+
+func teleport() -> void:
+ animationPlayer.play(\"fade_ind\")
+ yield(animationPlayer, \"animation_finished\")
+ var scene:= load(path_to_level)
+ get_tree().change_scene_to(scene)
+
+
+
+
+"
+
+[node name="Home" type="Node2D"]
+position = Vector2( 74.6921, 10.0649 )
+
+[node name="Background" parent="." instance=ExtResource( 5 )]
+
+[node name="DirtPathTileMap" parent="." instance=ExtResource( 11 )]
+
+[node name="WaterTileMap" parent="." instance=ExtResource( 3 )]
+tile_data = PoolIntArray(  )
+
+[node name="DirtCliffTileMap" parent="." instance=ExtResource( 4 )]
+
+[node name="WaterTileset2" parent="." instance=ExtResource( 18 )]
+
+[node name="Portal2D" parent="." instance=ExtResource( 17 )]
+visible = false
+position = Vector2( 3.87214, 81.5486 )
+path_to_level = "res://Route101.tscn"
+
+[node name="Portal2D2" parent="." instance=ExtResource( 17 )]
+visible = false
+position = Vector2( 366.317, 388.894 )
+rotation = 1.55639
+script = SubResource( 1 )
+path_to_level = "res://Rout103.tscn"
+
+[node name="Camera2D" parent="." instance=ExtResource( 10 )]
+position = Vector2( 17.8305, 84.6719 )
+
+[node name="TopLeft" parent="Camera2D/Limits" index="0"]
+position = Vector2( 83.9975, 7.45944 )
+
+[node name="BottomRight" parent="Camera2D/Limits" index="1"]
+position = Vector2( 556.729, 392.049 )
+
+[node name="YSort" type="YSort" parent="."]
+
+[node name="Player" parent="YSort" instance=ExtResource( 2 )]
+position = Vector2( 17.8305, 84.6719 )
+
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="YSort/Player"]
+remote_path = NodePath("../../../Camera2D")
+
+[node name="Fence 20" parent="YSort" instance=ExtResource( 13 )]
+tile_data = PoolIntArray( -65528, 10, 0, -65521, 4, 0, 8, 10, 0, 15, 4, 0, 65544, 10, 0, 65551, 4, 0, 131080, 9, 0, 131081, 8, 0, 131086, 6, 0, 131087, 5, 0, 393216, 11, 0, 393217, 1, 0, 393218, 0, 0, 393219, 0, 0, 393220, 0, 0, 393221, 0, 0, 393222, 0, 0, 393223, 2, 0, 393224, 3, 0, 393229, 11, 0, 393230, 1, 0, 393231, 0, 0, 393232, 0, 0, 393233, 0, 0, 393234, 0, 0, 393235, 0, 0, 393236, 6, 0, 393237, 3, 0, 458752, 10, 0, 458760, 4, 0, 458765, 10, 0, 458773, 4, 0, 524288, 10, 0, 524296, 4, 0, 524301, 10, 0, 524309, 4, 0, 589824, 10, 0, 589832, 4, 0, 589837, 10, 0, 589845, 4, 0, 655360, 10, 0, 655368, 4, 0, 655373, 10, 0, 655381, 4, 0, 720896, 10, 0, 720904, 4, 0, 720909, 10, 0, 720917, 4, 0, 786432, 10, 0, 786440, 4, 0, 786445, 10, 0, 786453, 4, 0, 851968, 9, 0, 851969, 1, 0, 851970, 2, 0, 851973, 1, 0, 851974, 0, 0, 851975, 2, 0, 851976, 5, 0, 851981, 9, 0, 851982, 8, 0, 851983, 6, 0, 851986, 1, 0, 851987, 0, 0, 851988, 6, 0, 851989, 5, 0, 917504, 10, 0, 983040, 10, 0, 1048576, 11, 0, 1048577, 1, 0, 1048578, 0, 0, 1048579, 0, 0, 1048580, 0, 0, 1048581, 0, 0, 1048582, 0, 0, 1048583, 0, 0, 1048584, 0, 0, 1048585, 0, 0, 1048586, 0, 0, 1048587, 0, 0, 1048588, 0, 0, 1048589, 0, 0, 1048590, 0, 0, 1048591, 0, 0, 1048592, 0, 0, 1048593, 0, 0, 1048594, 0, 0, 1048595, 0, 0, 1048596, 6, 0, 1048597, 3, 0, 1114133, 4, 0, 1179669, 4, 0, 1245205, 4, 0, 1310741, 4, 0, 1376277, 4, 0, 1441813, 4, 0, 1507349, 4, 0 )
+
+[node name="Bushes" type="YSort" parent="YSort"]
+
+[node name="Bush" parent="YSort/Bushes" instance=ExtResource( 1 )]
+position = Vector2( 25.1492, 241.07 )
+
+[node name="Bush6" parent="YSort/Bushes" instance=ExtResource( 1 )]
+position = Vector2( 332.253, 289.601 )
+
+[node name="Bush8" parent="YSort/Bushes" instance=ExtResource( 1 )]
+position = Vector2( 330.573, 367.548 )
+
+[node name="Grass" type="YSort" parent="YSort"]
+
+[node name="Grass2" parent="YSort/Grass" instance=ExtResource( 6 )]
+position = Vector2( 145.681, 104.066 )
+
+[node name="Grass5" parent="YSort/Grass" instance=ExtResource( 6 )]
+position = Vector2( 145.681, 121.066 )
+
+[node name="Grass8" parent="YSort/Grass" instance=ExtResource( 6 )]
+position = Vector2( 145.681, 138.066 )
+
+[node name="Grass29" parent="YSort/Grass" instance=ExtResource( 6 )]
+position = Vector2( 145.681, 154.066 )
+
+[node name="Grass30" parent="YSort/Grass" instance=ExtResource( 6 )]
+position = Vector2( 145.681, 170.066 )
+
+[node name="Grass31" parent="YSort/Grass" instance=ExtResource( 6 )]
+position = Vector2( 145.681, 188.066 )
+
+[node name="Grass33" parent="YSort/Grass" instance=ExtResource( 6 )]
+position = Vector2( 115.935, 142.607 )
+
+[node name="Grass41" parent="YSort/Grass" instance=ExtResource( 6 )]
+position = Vector2( 116.216, 162.35 )
+
+[node name="Grass42" parent="YSort/Grass" instance=ExtResource( 6 )]
+position = Vector2( 116.777, 181.515 )
+
+[node name="Grass43" parent="YSort/Grass" instance=ExtResource( 6 )]
+position = Vector2( 13.7914, 147.097 )
+
+[node name="Grass44" parent="YSort/Grass" instance=ExtResource( 6 )]
+position = Vector2( 13.5108, 165.617 )
+
+[node name="Grass46" parent="YSort/Grass" instance=ExtResource( 6 )]
+position = Vector2( 12.6689, 184.418 )
+
+[node name="Grass32" parent="YSort/Grass" instance=ExtResource( 6 )]
+position = Vector2( 145.681, 205.066 )
+
+[node name="Grass34" parent="YSort/Grass" instance=ExtResource( 6 )]
+position = Vector2( 194.752, 99.8572 )
+
+[node name="Grass35" parent="YSort/Grass" instance=ExtResource( 6 )]
+position = Vector2( 194.752, 116.857 )
+
+[node name="Grass36" parent="YSort/Grass" instance=ExtResource( 6 )]
+position = Vector2( 194.752, 133.857 )
+
+[node name="Grass37" parent="YSort/Grass" instance=ExtResource( 6 )]
+position = Vector2( 194.752, 149.857 )
+
+[node name="Grass38" parent="YSort/Grass" instance=ExtResource( 6 )]
+position = Vector2( 194.752, 165.857 )
+
+[node name="Grass39" parent="YSort/Grass" instance=ExtResource( 6 )]
+position = Vector2( 194.752, 183.857 )
+
+[node name="Grass40" parent="YSort/Grass" instance=ExtResource( 6 )]
+position = Vector2( 194.752, 200.857 )
+
+[node name="Grass6" parent="YSort/Grass" instance=ExtResource( 6 )]
+position = Vector2( 395.574, 207.132 )
+
+[node name="Grass7" parent="YSort/Grass" instance=ExtResource( 6 )]
+position = Vector2( 395.617, 188.805 )
+
+[node name="Grass16" parent="YSort/Grass" instance=ExtResource( 6 )]
+position = Vector2( 395.946, 171.42 )
+
+[node name="Grass17" parent="YSort/Grass" instance=ExtResource( 6 )]
+position = Vector2( 395.385, 153.87 )
+
+[node name="Grass18" parent="YSort/Grass" instance=ExtResource( 6 )]
+position = Vector2( 395.665, 136.192 )
+
+[node name="Grass12" parent="YSort/Grass" instance=ExtResource( 6 )]
+position = Vector2( 107.352, 30.8371 )
+
+[node name="Grass13" parent="YSort/Grass" instance=ExtResource( 6 )]
+position = Vector2( 88.3525, 30.8371 )
+
+[node name="Grass14" parent="YSort/Grass" instance=ExtResource( 6 )]
+position = Vector2( 70.3525, 30.8371 )
+
+[node name="Grass15" parent="YSort/Grass" instance=ExtResource( 6 )]
+position = Vector2( 52.3525, 30.8371 )
+
+[node name="Grass26" parent="YSort/Grass" instance=ExtResource( 6 )]
+position = Vector2( 52.3525, 30.8371 )
+
+[node name="Grass27" parent="YSort/Grass" instance=ExtResource( 6 )]
+position = Vector2( 34.3525, 30.8371 )
+
+[node name="Grass28" parent="YSort/Grass" instance=ExtResource( 6 )]
+position = Vector2( 34.3525, 47.8371 )
+
+[node name="Grass11" parent="YSort/Grass" instance=ExtResource( 6 )]
+position = Vector2( 134.657, -3.9219 )
+
+[node name="Grass23" parent="YSort/Grass" instance=ExtResource( 6 )]
+position = Vector2( 52.2642, 47.178 )
+
+[node name="Grass24" parent="YSort/Grass" instance=ExtResource( 6 )]
+position = Vector2( 70.5331, 47.808 )
+
+[node name="Grass25" parent="YSort/Grass" instance=ExtResource( 6 )]
+position = Vector2( 88.172, 47.808 )
+
+[node name="Grass45" parent="YSort/Grass" instance=ExtResource( 6 )]
+position = Vector2( 107.701, 47.808 )
+
+[node name="Grass20" parent="YSort/Grass" instance=ExtResource( 6 )]
+position = Vector2( 233.684, -3.6246 )
+
+[node name="Trees" type="YSort" parent="YSort"]
+
+[node name="Tree" parent="YSort/Trees" instance=ExtResource( 9 )]
+position = Vector2( 234.665, 197.196 )
+
+[node name="Tree2" parent="YSort/Trees" instance=ExtResource( 9 )]
+position = Vector2( 270.347, 55.6858 )
+
+[node name="Tree5" parent="YSort/Trees" instance=ExtResource( 9 )]
+position = Vector2( 335.937, 54.004 )
+
+[node name="Tree3" parent="YSort/Trees" instance=ExtResource( 9 )]
+position = Vector2( 119.431, 128.089 )
+
+[node name="Tree4" parent="YSort/Trees" instance=ExtResource( 9 )]
+position = Vector2( 25.2812, 131.686 )
+
+[node name="Tree6" parent="YSort/Trees" instance=ExtResource( 9 )]
+position = Vector2( 25.2812, 131.686 )
+
+[node name="Houses" type="YSort" parent="YSort"]
+
+[node name="StaticBody2D" parent="YSort/Houses" instance=ExtResource( 12 )]
+position = Vector2( 186.867, 30.9071 )
+
+[node name="StaticBody2D2" parent="YSort/Houses" instance=ExtResource( 12 )]
+position = Vector2( 68.8034, 147.212 )
+
+[node name="StaticBody2D3" parent="YSort/Houses" instance=ExtResource( 12 )]
+position = Vector2( 279.841, 146.235 )
+
+[node name="Bat" parent="YSort" instance=ExtResource( 7 )]
+position = Vector2( 537.396, 633.877 )
+
+[node name="Bat4" parent="YSort" instance=ExtResource( 7 )]
+position = Vector2( 622.917, 611.949 )
+
+[node name="Bat5" parent="YSort" instance=ExtResource( 7 )]
+position = Vector2( 658.877, 595.093 )
+
+[node name="Bat6" parent="YSort" instance=ExtResource( 7 )]
+position = Vector2( 712.816, 611.949 )
+
+[node name="Bat7" parent="YSort" instance=ExtResource( 7 )]
+position = Vector2( 751.023, 594.719 )
+
+[node name="Bat8" parent="YSort" instance=ExtResource( 7 )]
+position = Vector2( 794.474, 613.822 )
+
+[node name="Bat2" parent="YSort" instance=ExtResource( 7 )]
+position = Vector2( 573.629, 617.663 )
+
+[node name="Bat3" parent="YSort" instance=ExtResource( 7 )]
+position = Vector2( 526.73, 598.325 )
+
+[node name="KinematicBody2D" parent="YSort" instance=ExtResource( 15 )]
+position = Vector2( 55.7764, 236.129 )
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="HealthUI" parent="CanvasLayer" instance=ExtResource( 8 )]
+margin_left = 3.0
+margin_top = 3.0
+margin_right = 63.0
+margin_bottom = 14.0
+
+[node name="AudioStreamPlayer" parent="." instance=ExtResource( 14 )]
+
+[editable path="Camera2D"]
