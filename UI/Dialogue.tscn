@@ -25,12 +25,8 @@ tracks/0/keys = {
 "values": [ Vector2( 292.672, 32.4038 ), Vector2( 292.672, 33.767 ) ]
 }
 
-[node name="Control" type="Control"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
+[node name="Control" type="CanvasLayer"]
+layer = 8
 
 [node name="DialogueBox" type="Control" parent="."]
 anchor_left = 0.505

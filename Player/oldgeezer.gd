@@ -17,6 +17,8 @@ var velocity = Vector2.ZERO
 var knockback = Vector2.ZERO
 var state = CHASE
 var canInteract = false
+export var dialog = preload("res://UI/Dialogue.tscn")
+
 
 onready var animationPlayer = $AnimationPlayer
 onready var animationTree = $AnimationTree
@@ -26,6 +28,7 @@ onready var wanderController = $WanderController
 
 func _ready():
 	state = pick_random_state([IDLE, WANDER])
+	canInteract = false
 
 func _physics_process(delta):
 	var input_vector = Vector2.ZERO
@@ -61,7 +64,8 @@ func _physics_process(delta):
 #				accelerate_towards_point(player.global_position, delta)
 #			else:
 #				state = IDLE
-
+#	if Input.is_action_pressed("ui_accept"):
+#		playScene()
 
 func accelerate_towards_point(point, delta):
 	var direction = global_position.direction_to(point)
@@ -77,5 +81,25 @@ func update_wander():
 func pick_random_state(state_list):
 	state_list.shuffle()
 	return state_list.pop_front()
+
+
+func playScene():
+	if canInteract == true:
+		var node = dialog.instance()
+		add_child(node)
+		print("Cena carregada")
+		canInteract = false
+	else:
+		pass
+
+
+func _on_InteractArea_body_entered(body):
+	 canInteract = true
+
+
+
+func _on_InteractArea_body_exited(body):
+	canInteract = false
+
 
 
