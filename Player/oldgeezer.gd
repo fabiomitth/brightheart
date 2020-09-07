@@ -16,7 +16,7 @@ enum {
 var velocity = Vector2.ZERO
 var knockback = Vector2.ZERO
 var state = CHASE
-
+var canInteract = false
 
 onready var animationPlayer = $AnimationPlayer
 onready var animationTree = $AnimationTree
@@ -79,7 +79,3 @@ func pick_random_state(state_list):
 	return state_list.pop_front()
 
 
-
-
-func _on_DialogPlayer_input_event(viewport, event, shape_idx):
-	pass # Replace with function body.

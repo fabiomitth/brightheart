@@ -1,18 +1,31 @@
 extends Area2D
 
-export(String, FILE) var dialog
+
+
+var canInteract = false
+var dialog = preload("res://UI/Dialogue.tscn")
+
 
 func _ready():
-	pass #
+	pass
 
-
-
-func _on_DialogPlayer_input_event(viewport, event, shape_idx):
+func _input(event):
 	if Input.is_action_pressed("ui_accept"):
 		playScene()
 
 
+func playScene():
+	var node = dialog.instance()
+	if canInteract == true:
+		add_child(node)
+		print("Cena carregada")
 
-func playScene() -> void:
-	var scene:= load(dialog)
-	get_tree().change_scene_to(scene)
+
+func _on_DialogPlayer_body_entered(body):
+	canInteract = true
+	print ("Pode interagir")
+
+
+func _on_DialogPlayer_body_exited(body):
+	canInteract = false
+	print("Não pode interagir")
