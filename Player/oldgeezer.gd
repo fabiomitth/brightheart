@@ -17,6 +17,7 @@ var velocity = Vector2.ZERO
 var knockback = Vector2.ZERO
 var state = CHASE
 var canInteract = false
+
 export var dialog = preload("res://UI/Dialogue.tscn")
 
 
@@ -64,8 +65,7 @@ func _physics_process(delta):
 #				accelerate_towards_point(player.global_position, delta)
 #			else:
 #				state = IDLE
-#	if Input.is_action_pressed("ui_accept"):
-#		playScene()
+#	
 
 func accelerate_towards_point(point, delta):
 	var direction = global_position.direction_to(point)
@@ -82,6 +82,12 @@ func pick_random_state(state_list):
 	state_list.shuffle()
 	return state_list.pop_front()
 
+
+func _input(event):
+	if Input.is_action_just_pressed("dismiss"):
+		canInteract = false
+	if Input.is_action_pressed("ui_accept"):
+		playScene()
 
 func playScene():
 	if canInteract == true:
